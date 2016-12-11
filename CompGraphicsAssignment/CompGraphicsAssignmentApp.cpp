@@ -3,11 +3,16 @@
 #include "Input.h"
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include <gl_core_4_4.h>
+#include <GLFW\glfw3.h>
+#include <imgui.h>
+#include <string.h>
 
 using glm::vec3;
 using glm::vec4;
 using glm::mat4;
 using aie::Gizmos;
+using std::string;
 
 CompGraphicsAssignmentApp::CompGraphicsAssignmentApp() {
 
@@ -25,14 +30,16 @@ bool CompGraphicsAssignmentApp::startup() {
 	Gizmos::create(10000, 10000, 10000, 10000);
 
 	// create simple camera transforms
-	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
-	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
+	
+	// Create new camer
+	m_camera = new FlyCamera();
 
 	return true;
 }
 
 void CompGraphicsAssignmentApp::shutdown() {
 
+	delete m_camera;
 	Gizmos::destroy();
 }
 
@@ -53,6 +60,15 @@ void CompGraphicsAssignmentApp::update(float deltaTime) {
 						i == 10 ? white : black);
 	}
 
+	//Add Cameras update function to allow the Camera to move around
+	m_camera->update((float)glfwGetTime());
+
+	// Create ImageGui
+	ImGui::Begin("Camera");
+	ImGui::Text("Camera Position: ", 11);
+	ImGui::End();
+	// End ImgGUI
+
 	// add a transform so that we can see the axis
 	Gizmos::addTransform(mat4(1));
 
@@ -67,9 +83,6 @@ void CompGraphicsAssignmentApp::draw() {
 
 	// wipe the screen to the background colour
 	clearScreen();
-
-	// update perspective based on screen size
-	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
-
-	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
+	ImGui::Render();
+	Gizmos::draw(m_camera->getProjectionView());
 }
