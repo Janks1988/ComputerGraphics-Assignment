@@ -114,6 +114,7 @@ void FlyCamera::update(float deltaTime)
 	}
 
 	// Update the projection transform
+	m_eye = vec3(m_worldTransform[3]);
 	m_viewTransform = glm::inverse(m_worldTransform);
 	updateProjectionView();
 }
