@@ -28,11 +28,11 @@ bool CompGraphicsAssignmentApp::startup() {
 
 	// initialise gizmo primitive counts
 	Gizmos::create(10000, 10000, 10000, 10000);
-
-	// create simple camera transforms
 	
-	// Create new camer
+	// Create new camera
 	m_camera = new FlyCamera();
+
+	m_mainTerrain = new Terrain();
 
 	return true;
 }
@@ -40,6 +40,7 @@ bool CompGraphicsAssignmentApp::startup() {
 void CompGraphicsAssignmentApp::shutdown() {
 
 	delete m_camera;
+	m_mainTerrain->~Terrain();
 	Gizmos::destroy();
 }
 
@@ -60,14 +61,14 @@ void CompGraphicsAssignmentApp::update(float deltaTime) {
 						i == 10 ? white : black);
 	}
 
+	// Draw a couple of Spheres for demo purposes
+
+	//Gizmos::addSphere(vec3(0), 1.f, 20, 20, vec4(255, 0, 0, 1));
+	//Gizmos::addSphere(vec3(5), 2.f, 20, 20, vec4(0, 255, 0, 1));
+	//Gizmos::addSphere(vec3(-5), 1.f, 20, 20, vec4(0, 0, 255, 1));
+
 	//Add Cameras update function to allow the Camera to move around
 	m_camera->update((float)glfwGetTime());
-
-	// Create ImageGui
-	ImGui::Begin("Camera");
-	ImGui::Text("Camera Position: ", 11);
-	ImGui::End();
-	// End ImgGUI
 
 	// add a transform so that we can see the axis
 	Gizmos::addTransform(mat4(1));
@@ -83,6 +84,6 @@ void CompGraphicsAssignmentApp::draw() {
 
 	// wipe the screen to the background colour
 	clearScreen();
-	ImGui::Render();
+	m_mainTerrain->render(m_camera);
 	Gizmos::draw(m_camera->getProjectionView());
 }

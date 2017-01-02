@@ -5,9 +5,10 @@
 #include <glm/ext.hpp>
 
 
+
 FlyCamera::FlyCamera()
 {
-	m_speed = 0.01f;
+	m_speed = 0.1f;
 }
 
 
