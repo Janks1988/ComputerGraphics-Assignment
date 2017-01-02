@@ -93,11 +93,13 @@
     <ClCompile Include="CompGraphicsAssignmentApp.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CompGraphicsAssignmentApp.h" />
     <ClInclude Include="FlyCamera.h" />
+    <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

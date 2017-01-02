@@ -2,6 +2,8 @@
 #define FLYCAMERA_H
 
 #include "Camera.h"
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 /*
 This class is for a Fly Camera that wil allow the user to move the
@@ -23,7 +25,6 @@ public:
 
 protected:
 	float	m_speed;
-
 };
 
 #endif //FLYCAMERA_H

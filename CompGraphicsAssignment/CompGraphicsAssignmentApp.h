@@ -3,6 +3,7 @@
 #include "Application.h"
 #include <glm/mat4x4.hpp>
 #include "FlyCamera.h"
+#include "Terrain.h"
 
 class CompGraphicsAssignmentApp : public aie::Application {
 public:
@@ -20,4 +21,7 @@ protected:
 
 	// camera transforms
 	FlyCamera* m_camera;
+
+	// Terrain Setup for Scene
+	Terrain* m_mainTerrain;
 };
